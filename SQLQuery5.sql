@@ -36,24 +36,30 @@ ADD CONSTRAINT Unique_code UNIQUE(Code)
 --6. Change the data type In the Salary field from INTEGER to NUMERIC (6,2).
 ALTER TABLE TEACHERS 
 ALTER COLUMN Salary NUMERIC(6,2)
+
 --7. Add to the table "TEACHERS" the following restriction: the salary should not be less than
 --1000, but also should not Exceed 5000.
 ALTER TABLE TEACHERS
 ADD CONSTRAINT CHK_Salary CHECK(Salary>1000 AND Salary <5000)
+
 --8. Rename Tel column to Phone.
 EXECUTE sp_rename 'TEACHERS.Tel', 'Phone', 'COLUMN';
+
 --9. Change the data type in the Phone field from CHAR (7) to CHAR (11).
 ALTER TABLE TEACHERS 
 ALTER COLUMN Phone CHAR(11)
---10. Create again the "POSTS" table.
+
+    --10. Create again the "POSTS" table.
 CREATE TABLE POSTS (
     Id INT PRIMARY KEY,
     Name NVARCHAR(20)
 );
+
 --11. For the Name field of the "POSTS" table, you must set a limit on the position (professor,
 --assistant professor, teacher or assistant).
 ALTER TABLE POSTS
 ADD CONSTRAINT CHK_Name CHECK(Name IN('Professor', 'Docent', 'Teacher', 'Assistant'))
+    
 --12. For the Name field of the "TEACHERS" table, specify a restriction in which to prohibit the
 --presence of figures in the teacher's surname.
 ALTER TABLE TEACHERS
@@ -117,7 +123,7 @@ CREATE VIEW View_HireDateShortFormat AS
 SELECT 
     T.Name, 
     P.Name AS Post, 
-    CONVERT(VARCHAR, HireDate, 3) AS HireDate -- 3 = dd/mm/yy
+    CONVERT(VARCHAR, HireDate, 3) AS HireDate 
 FROM TEACHERS T
 JOIN POSTS P ON T.IdPost = P.Id;
 
